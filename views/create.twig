@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Invoice Generator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->    
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+          <h4 class="pull-left">Invoice Generator</h4>
+          <a href="{{ app.url_generator.generate('index') }}" class="pull-right btn btn-primary btn">Home</a>
+        </div>
+      </div> 
+
+      {% for message in app.session.flashbag.get('error') %}
+      <div class="alert alert-danger">
+        <strong>Error!</strong> {{ message }}
+      </div>
+      {% endfor %} 
+      
+      <form method="post" action="{{ app.url_generator.generate('create') }}">
+        <div class="panel panel-default">
+          <div class="panel-heading clearfix">
+            <h4 class="pull-left">Customer Information</h4>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="color">Name</label>
+              <input type="text" class="form-control" id="name" name="name" required="true"></input>
+            </div>
+            <div class="form-group">
+              <label for="address1">Address (line 1)</label>
+              <input type="text" class="form-control" id="address1" name="address1" required="true"></input>
+            </div>
+            <div class="form-group">
+              <label for="address2">Address (line 2)</label>
+              <input type="text" class="form-control" id="address2" name="address2"></input>
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" class="form-control" id="city" name="city" required="true"></input>
+            </div>
+            <div class="form-group">
+              <label for="state">State</label>
+              <input type="text" class="form-control" id="state" name="state" required="true"></input>
+            </div>
+            <div class="form-group">
+              <label for="postcode">Postal code</label>
+              <input type="text" class="form-control" id="postcode" name="postcode" required="true"></input>
+            </div>
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control" id="email" name="email" required="true"></input>
+            </div>
+          </div>
+        </div>
+        
+        <div class="panel panel-default">
+          <div class="panel-heading clearfix">
+            <h4 class="pull-left">Invoice Information</h4>
+          </div>
+          <div class="panel-body" id="lines">
+            <div id="line-template" class="line">
+              <div class="form-group">
+                <label>Item description</label>
+                <input type="text" class="form-control" name="lines[0][item]"></input>
+              </div>
+              <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" min="0" step="any" class="form-control" name="lines[0][qty]"></input>
+              </div>
+              <div class="form-group">
+                <label>Rate</label>
+                <input type="number" min="0" step="any" class="form-control" name="lines[0][rate]"></input>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <a id="add" href="#" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add Invoice Line</a>
+          <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+        </div>             
+
+      </form>
+    </div>
+    
+    <div class="container">
+      <p class="text-center">
+        <a href="{{ app.url_generator.generate('legal') }}" role="button" class="btn btn-default btn-sm">Legal</a>
+        <a href="{{ app.url_generator.generate('legal') }}" role="button" class="btn btn-danger btn-sm">System Reset</a>
+    </div> 
+    
+  </body>
+  <script>
+  $(document).ready(function() {  
+    var cloneIndex = 0;
+    
+    $("#add").click(function(e) {  
+        e.preventDefault();
+        $("#line-template").clone()
+            .appendTo("#lines")
+            .prepend('<hr />')
+            .attr('id', null)
+            .find("input").each(function() {
+                var name = this.name;
+                this.name = name.replace("lines[0]", "lines[" + (cloneIndex+1) + "]");
+                this.value = null;
+        });
+        cloneIndex++;    
+    });
+  });
+  </script>
+</html>

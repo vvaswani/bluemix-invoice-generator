@@ -1,0 +1,15 @@
+{
+    "require": {
+        "silex/silex": "*",
+        "twig/twig": "*",
+        "symfony/validator": "*",        
+        "mpdf/mpdf": "*",
+        "php-opencloud/openstack": "*",
+        "sendgrid/sendgrid": "*"
+    },
+    "autoload": {
+        "psr-4": {"App\\Validator\\Constraints\\": "src/"}
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

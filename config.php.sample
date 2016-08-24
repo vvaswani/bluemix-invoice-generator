@@ -1,0 +1,21 @@
+<?php
+// config.php.sample
+$config = [
+  'settings' => [
+    'db' => [
+      'name' => 'DB_NAME',
+      'hostname' => 'DB_NAME',
+      'username' => 'DB_USERNAME',
+      'password' => 'DB_PASSWORD',
+    ],
+    'object-storage' => [
+      'url' => 'STORAGE_URI',
+      'region' => 'STORAGE_REGION',
+      'user' => 'STORAGE_USERNAME',
+      'pass' => 'STORAGE_PASSWORD',
+    ],
+    'sendgrid' => [
+      'key' => 'KEY',
+    ],
+  ]
+];

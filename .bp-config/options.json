@@ -1,0 +1,6 @@
+{
+    "WEB_SERVER": "httpd",
+    "PHP_EXTENSIONS": ["bz2", "zlib"],
+    "WEBDIR": "public",
+    "PHP_VERSION": "{PHP_56_LATEST}"
+}

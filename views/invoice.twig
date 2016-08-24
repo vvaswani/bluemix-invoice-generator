@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <style>
+    .panel-heading {
+      background-color: #d3d3d3;
+    }
+    .col-md-4 {
+      width: 25%;
+    }
+    </style>    
+  </head>
+  <body>
+
+    <div class="page-header">
+      <h1 class="text-center">SAMPLE INVOICE</h1>
+    </div>
+
+    <div class="container">
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">CUSTOMER</h3>
+          </div>
+          <div class="panel-body">
+            {{ data.name }} <br />
+            {{ data.address1 }} <br />
+            {% if data.address2 %}
+              {{ data.address2 }} <br />
+            {% endif %}
+            {{ data.city }} <br />
+            {{ data.state }} <br />
+            {{ data.postcode }} <br />
+          </div>
+        </div>  
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">SUMMARY</h3>
+          </div>
+          <div class="panel-body">
+            <table class="table">
+                <tr>
+                  <th>Description</th>
+                  <th>Quantity</th>
+                  <th>Rate</th>
+                  <th>Amount</th>                  
+                </tr>
+                {% for line in data.lines %}
+                <tr>
+                  <td> {{ line['item'] }}</td>
+                  <td> {{ line['qty'] }}</td>
+                  <td> {{ line['rate'] }}</td>
+                  <td> {{ line['subtotal'] }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td style="border-top: solid 1px black"><strong>{{ total }}</strong></td>
+                </tr>
+            </table>
+          </div>
+        </div>  
+      </div>
+    </div>    
+    
+    <div class="container">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">PAYMENT TERMS</h3>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <li>Payment within 15 days of invoice date</li>
+              <li>Late payment penalty: 1% per month</li>
+              <li>Sample invoice, not for production use or billing</li>
+            </ul>
+          </div>
+        </div>  
+      </div>
+    </div>
+    
+  
+  </body>
+</html>
