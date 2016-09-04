@@ -168,7 +168,7 @@ $app->get('/delete/{id}', function ($id) use ($app, $db, $objectstore) {
     $app['session']->getFlashBag()->add('Failed to delete invoice from database: ' . $db->error);
     return $app->redirect($app["url_generator"]->generate('index'));
   }
-  // delete invoice from object storae
+  // delete invoice from object storage
   $container = $objectstore->getContainer('invoices');
   $object = $container->getObject("$id.pdf");
   $object->delete();  
